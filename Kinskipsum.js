@@ -2,7 +2,7 @@ var QuotesParagraph = [];
 var QuotesHeading   = [];
 var QuotesSuheading   = [];
 //---------------------------------------------------------------
-var QuotesAmountParagraph = 4;
+var QuotesAmountParagraph = 2;
 //---------------------------------------------------------------
 var ParagraphTextBlock   = $('.paragraphText');
 var HeadingText          = $('.headingText');
@@ -17,28 +17,42 @@ $('.subHeadingText').click(function(){OnCopyToClipBoard(this);});
 //---------------------------------------------------------------
 $(document).on('click','.fa-plus',function(){OnClickAdd(event);});
 $(document).on('click','.fa-refresh',function(){OnClickRefresh(event);});
+$(document).on('click','.fa-minus',function(){OnClickMinus(event);});
 //---------------------------------------------------------------
 $('.selectBlock').hover(function(){OnTextHover(this);});
 //---------------------------------------------------------------
 }
 function OnClickAdd(_event)
 {
-     console.log($(_event.Target));
-    _event.stopPropagation();    
+     console.log($(_event.target).parent());  
     QuotesAmountParagraph+=2;
     FillText_(""+$(_event.target).parent().parent().attr("class"),QuotesAmountParagraph);
-
+    if(QuotesAmountParagraph>2){$(_event.target).parent().addClass('minusVisible')}
+    console.log(QuotesAmountParagraph);
+}   
+function OnClickMinus(_event)
+{
+    console.log($(_event.target).parent());
+    if(QuotesAmountParagraph>3)
+    {
+        QuotesAmountParagraph-=2;
+        console.log(QuotesAmountParagraph);
+        if(QuotesAmountParagraph<4){$(_event.target).parent().removeClass('minusVisible')}
+        FillText_(""+$(_event.target).parent().parent().attr("class"),QuotesAmountParagraph);
+    } 
+   
 }
 //---------------------------------------------------------------
 function OnClickRefresh(_event)
 {
-     console.log($(_event.target));
+     
      _event.stopPropagation();
-     FillText_(""+$(_event.target).parent().parent().attr("class"));
+     FillText_(""+$(_event.target).parent().prev().attr("class"));
 }
 //---------------------------------------------------------------
 function OnTextHover(_obj)
 {
+
 
   if($(_obj).children().attr("class")==="paragraphText")
   {  
@@ -67,7 +81,7 @@ function LoadQuotes()
 //---------------------------------------------------------------
 function FillText_(_textToFill)
 {     
-    
+  
     var textSelection;
     var Quotes;
     var text = "";
@@ -92,20 +106,25 @@ function FillText_(_textToFill)
 
     $(textSelection).each(function()
     {
+        console.log(textSelection.length);
         text = "";
         for(var i=0;i<quotesAmount;i++)
         {
-           QuoteNumber= (Math.floor(Math.random()*QuotesSuheading.length-1|0));       
-           text +=" " + Quotes[QuoteNumber];
+           QuoteNumber= (Math.floor(Math.random()*QuotesSuheading.length-1|0)); 
+           text +=" " + Quotes[QuoteNumber];                
         }
-
-        $(textSelection).fadeOut(function()
-        {
-            $(this).html(text).fadeIn();
-        });
         
+        console.log(text);
+        $(this).fadeOut( "fast",function()
+        {
+            console.log(text);
+          $(this).html(text);
+           $(this).fadeIn();
+        });
+
     }); 
 }
+
 //---------------------------------------------------------------
 function OnCopyToClipBoard(_obj)
 {  

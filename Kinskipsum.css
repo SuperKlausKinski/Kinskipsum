@@ -1,26 +1,39 @@
+html, body{
+    text-align: left;
+    margin: 0;
+    height: 100%;
 
+}
 .headingText{
     position:absolute;
-    bottom:0;    
+    bottom:36px;    
 }
 .subHeadingText{
-    height: 75px;
+    height:48px;
     display: table-cell;
     vertical-align: bottom; 
-    margin-right:310px
 }
 
 .paragraphText{
-margin-top: 10px;
+margin-top: 16px;
 }
 
 .container{  
 text-align: left;
-margin-top: 400px;
+
 }
 
+#Content{
+
+   margin-top:    360px; 
+   padding-bottom:150px;
+    
+}
+
+
 .selectBlock{
-    display:block;
+ 
+ display:inline-block;
 }
 
 
@@ -29,7 +42,6 @@ p{
     font-family: 'Fauna One', serif;   
     font-size: 16px;
     line-height: 32px;
-    text-align: left;
 }
 
 h1{
@@ -55,32 +67,39 @@ h2{
     font-size: 24px;
     color:white;
     background-color:red;
-    float:right;
+    float:left;
+    height:38px;
+    margin-top: 8px;
 }
 .refreshVisibleParagraph{
     opacity: 1;
-    transition: opacity .25s ease-in-out;
-    height:38px;
+   
     width: 72px;
-    float:left;
+    transition: all .2s ease-in-out;
     
 }
+
+.minusVisible{
+    width: 108px;
+   
+}
+
 .refreshVisible{
     opacity: 1;
     transition: opacity .25s ease-in-out;  
-    height:38px;
     width: 36px;
     background-color:red;
-    margin-left: 8px;
-    float:right;
+
 }
+
+
 
 .moveToBottom{
     position:absolute;
     bottom:0; 
 }
 
-.fa-refresh,.fa-plus{
+.fa-refresh,.fa-plus,.fa-minus{
     font-size: 24px;
     padding: 8px;
     text-align: center;
@@ -89,3 +108,13 @@ h2{
         
 }
 
+.footer{
+  
+    padding-top:20px;
+    text-align: center;
+    background-color:white;
+    color: white;
+
+
+} 
+}
