@@ -6,7 +6,8 @@ var QuotesAmountParagraph = 2;
 //---------------------------------------------------------------
 var ParagraphTextBlock   = $('.paragraphText');
 var HeadingText          = $('.headingText');
-var SubHeadingText          = $('.subHeadingText');
+var SubHeadingText       = $('.subHeadingText');
+var FooterText           = $('#footerText');
 
 //---------------------------------------------------------------
 
@@ -24,19 +25,19 @@ $('.selectBlock').hover(function(){OnTextHover(this);});
 }
 function OnClickAdd(_event)
 {
-     console.log($(_event.target).parent());  
+   
     QuotesAmountParagraph+=2;
     FillText_(""+$(_event.target).parent().parent().attr("class"),QuotesAmountParagraph);
     if(QuotesAmountParagraph>2){$(_event.target).parent().addClass('minusVisible')}
-    console.log(QuotesAmountParagraph);
+ 
 }   
 function OnClickMinus(_event)
 {
-    console.log($(_event.target).parent());
+  
     if(QuotesAmountParagraph>3)
     {
         QuotesAmountParagraph-=2;
-        console.log(QuotesAmountParagraph);
+       
         if(QuotesAmountParagraph<4){$(_event.target).parent().removeClass('minusVisible')}
         FillText_(""+$(_event.target).parent().parent().attr("class"),QuotesAmountParagraph);
     } 
@@ -84,7 +85,6 @@ function FillText_(_textToFill)
   
     var textSelection;
     var Quotes;
-    var text = "";
     var QuoteNumber = "0";
     var quotesAmount = 1;
 
@@ -106,19 +106,19 @@ function FillText_(_textToFill)
 
     $(textSelection).each(function()
     {
-        console.log(textSelection.length);
-        text = "";
+        
+        var _text = "";
         for(var i=0;i<quotesAmount;i++)
         {
            QuoteNumber= (Math.floor(Math.random()*QuotesSuheading.length-1|0)); 
-           text +=" " + Quotes[QuoteNumber];                
+           _text +=" " + Quotes[QuoteNumber];                
         }
         
-        console.log(text);
+        
         $(this).fadeOut( "fast",function()
-        {
-            console.log(text);
-          $(this).html(text);
+        {console.log(this);
+            console.log(_text);
+          $(this).html(_text);
            $(this).fadeIn();
         });
 
@@ -128,7 +128,7 @@ function FillText_(_textToFill)
 //---------------------------------------------------------------
 function OnCopyToClipBoard(_obj)
 {  
- console.log($(_obj).width());
+   
    var objClass = "."+$(_obj).attr("class");   
    var clipBoard = new Clipboard(objClass,
        {
@@ -139,8 +139,23 @@ function OnCopyToClipBoard(_obj)
          
        });
 
-    $(_obj).fadeTo('fast', 0.5).fadeTo('fast', 1);
+    $(_obj).fadeTo('fast', 0.5,FooterTextOnCopy()).fadeTo('fast', 1);
     clipBoard.on('success',function(e){e.clearSelection();})
+}
+//---------------------------------------------------------------
+function FooterTextOnCopy(){
+     $(FooterText).fadeOut( "fast",function()
+        {
+          $(FooterText).text("Copied!");
+          $(FooterText).fadeIn("fast",function()
+          {
+              $(FooterText).fadeOut( "slow",function()
+              {
+                 $(FooterText).text("Click Text To Copy. Hover over text for options.");
+                 $(FooterText).fadeIn("slow");
+              });
+          });
+        });
 }
 //---------------------------------------------------------------
 jQuery(document).ready(function(){
